@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.southwind.repository.StudentRepository">
+    <select id="findAll" resultType="com.southwind.entity.Student">
+        select * from user
+    </select>
+    <delete id="deleteByName" parameterType="java.lang.String">
+        delete from user where name = #{name}
+    </delete>
+    <insert id="save" parameterType="com.southwind.entity.Student">
+        insert into user (name,age,money) values (#{name},#{age},#{money})
+    </insert>
+    <update id="update" parameterType="com.southwind.entity.Student">
+        update user set name = #{name},age = #{age},money=#{money} where id =#{id}
+    </update>
+</mapper>

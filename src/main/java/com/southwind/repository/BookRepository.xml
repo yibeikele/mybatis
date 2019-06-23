@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.southwind.repository.BookRepository">
+    <resultMap id="BookMap" type="com.southwind.entity.Book">
+        <id property="id" column="bid"></id>
+        <result property="name" column="bname"></result>
+        <result property="author" column="bauthor"></result>
+        <result property="publish" column="bpublish"></result>
+        <result property="pages" column="bpages"></result>
+        <result property="price" column="bprice"></result>
+        <result property="bookcaseid" column="bbcase"></result>
+        <result property="abled" column="babled"></result>
+        <collection property="bookCase" ofType="com.southwind.entity.BookCase">
+            <id property="id" column="cid"></id>
+            <result property="name" column="cname"></result>
+        </collection>
+    </resultMap>
+    
+    <select id="findById" parameterType="int" resultMap="BookMap">
+        select book.id bid,book.name bname,book.author bauthor,book.publish bpublish,book.pages bpages,book.price bprice,book.bookcaseid bbcase,book.abled babled,bookcase.id cid,bookcase.name cname from book,bookcase where bookcase.id = book.bookcaseid and book.id = #{id}
+    </select>
+</mapper>

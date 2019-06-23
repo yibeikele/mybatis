@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.southwind.repository.Student1Repository">
+    <resultMap id="StudentMap" type="com.southwind.entity.Student1">
+        <id property="id" column="sid"></id>
+        <result property="name" column="sname"></result>
+        <collection property="classs" ofType="com.southwind.entity.Classs">
+            <id property="id" column="cid"></id>
+            <result property="name" column="cname"></result>
+        </collection>
+    </resultMap>
+
+    <resultMap id="classesMap" type="com.southwind.entity.Classs">
+        <id property="id" column="cid"></id>
+        <result property="name" column="cname"></result>
+        <!-- 映射 students -->
+        <collection property="student1s" ofType="com.southwind.entity.Student1">
+            <id property="id" column="sid"></id>
+            <result property="name" column="sname"></result>
+        </collection>
+    </resultMap>
+    <select id="findById"  resultMap="StudentMap">
+        select student.id sid,student.name sname, classs.id cid,classs.name cname from classs,student where  student.cid = classs.id
+    </select>
+    <select id="findAll" resultMap="classesMap">
+        select classs.id cid,classs.name cname,student.id sid,student.name sname from classs,student where classs.id = student.cid
+    </select>
+</mapper>
